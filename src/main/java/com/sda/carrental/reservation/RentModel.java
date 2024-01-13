@@ -1,5 +1,7 @@
 package com.sda.carrental.reservation;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.sda.carrental.employee.EmployeeModel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -14,7 +16,9 @@ public class RentModel {
     private Long id;
 
     @NotNull
-    private String employee;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "employee_id")
+    private EmployeeModel employee;
 
     private String comments;
 
@@ -26,7 +30,7 @@ public class RentModel {
     @JoinColumn(name = "reservation_id")
     private ReservationModel reservation;
 
-    public RentModel(Long id, String employee, String comments, LocalDate rentDate, ReservationModel reservation) {
+    public RentModel(Long id, EmployeeModel employee, String comments, LocalDate rentDate, ReservationModel reservation) {
         this.id = id;
         this.employee = employee;
         this.comments = comments;
@@ -44,11 +48,11 @@ public class RentModel {
         this.id = id;
     }
 
-    public String getEmployee() {
+    public EmployeeModel getEmployee() {
         return employee;
     }
 
-    public void setEmployee(String employee) {
+    public void setEmployee(EmployeeModel employee) {
         this.employee = employee;
     }
 

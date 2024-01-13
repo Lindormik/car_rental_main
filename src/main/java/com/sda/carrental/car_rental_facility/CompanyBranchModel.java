@@ -1,10 +1,12 @@
 package com.sda.carrental.car_rental_facility;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.sda.carrental.employee.EmployeeModel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "company_branch")
@@ -15,19 +17,26 @@ public class CompanyBranchModel {
     private Long id;
 
     @NotNull(message = "field can't be null")
-    private String name;
+    private String branchAddress;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "company_branch_id")
+    private List<EmployeeModel> employees;
 
     @ManyToOne
     @JoinColumn(name = "car_rental_id", nullable = false)
     @JsonBackReference
     private CarRentalModel carRental;
 
-    public CompanyBranchModel(Long id, String name) {
+    public CompanyBranchModel(Long id, String branchAddress, List<EmployeeModel> employees, CarRentalModel carRental) {
         this.id = id;
-        this.name = name;
+        this.branchAddress = branchAddress;
+        this.employees = employees;
+        this.carRental = carRental;
     }
 
-    public CompanyBranchModel() {}
+    public CompanyBranchModel() {
+    }
 
     public Long getId() {
         return id;
@@ -35,14 +44,6 @@ public class CompanyBranchModel {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public CarRentalModel getCarRental() {
@@ -53,11 +54,27 @@ public class CompanyBranchModel {
         this.carRental = carRental;
     }
 
+    public String getBranchAddress() {
+        return branchAddress;
+    }
+
+    public void setBranchAddress(String branchAddress) {
+        this.branchAddress = branchAddress;
+    }
+
+    public List<EmployeeModel> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<EmployeeModel> employees) {
+        this.employees = employees;
+    }
+
     @Override
     public String toString() {
         return "CompanyBranchModel{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", adress= " + branchAddress + '\'' +
                 '}';
     }
 }

@@ -26,6 +26,15 @@ public class CarModel {
     private String type;
 
     @NotNull
+    private int yearOfProduction;
+
+    @NotNull
+    private String color;
+
+    @NotNull
+    private int carMileage;
+
+    @NotNull
     private CarStatus status;
 
     @NotNull
@@ -34,28 +43,35 @@ public class CarModel {
     @Digits(integer = 7, fraction = 2, message = "Price must have up to 7 digits in total and 2 decimal places")
     private BigDecimal price;
 
-    public CarModel(Long id, String brand, String model, String type, CarStatus status, BigDecimal price) {
+
+    public CarModel(Long id, String brand, String model, String type, int yearOfProduction, String color, int carMileage, CarStatus status, BigDecimal price) {
         this.id = id;
         this.brand = brand;
         this.model = model;
         this.type = type;
+        this.yearOfProduction = yearOfProduction;
+        this.color = color;
+        this.carMileage = carMileage;
         this.status = status;
         this.price = price;
     }
 
+
     @Override
     public String toString() {
         return "CarModel{" +
-                "id=" + id +
-                ", brand='" + brand + '\'' +
-                ", model='" + model + '\'' +
-                ", type='" + type + '\'' +
-                ", status=" + status +
-                ", price=" + price +
+                "id = " + id +
+                ", brand = " + brand + '\'' +
+                ", model = " + model + '\'' +
+                ", type = " + type + '\'' +
+                ", color = " + color + '\'' +
+                ", status =" + status +
+                ", price = " + price +
                 '}';
     }
 
-    public CarModel() {}
+    public CarModel() {
+    }
 
     public Long getId() {
         return id;
@@ -103,5 +119,29 @@ public class CarModel {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public int getYearOfProduction() {
+        return yearOfProduction;
+    }
+
+    public void setYearOfProduction(int yearOfProduction) {
+        this.yearOfProduction = yearOfProduction;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public int getCarMileage() {
+        return carMileage;
+    }
+
+    public void setCarMileage(int carMileage) {
+        this.carMileage = carMileage;
     }
 }

@@ -1,7 +1,9 @@
 package com.sda.carrental.reservation;
 
 import com.sda.carrental.car_rental_facility.BranchesRepository;
+import com.sda.carrental.car_rental_facility.CarRentalModel;
 import com.sda.carrental.car_rental_facility.CompanyBranchModel;
+import com.sda.carrental.employee.EmployeeModel;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
@@ -11,6 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,13 +53,14 @@ class ReservationServiceTest {
                 1L,
                 2L
         );
-
+        List<EmployeeModel> employees = new ArrayList<>();
+        CarRentalModel carRental = new CarRentalModel();
         //here we are recording behavior of branchesRepositoryMock
         //when findById will be invoked in the method code we will return startBranch object
-        CompanyBranchModel startBranch = new CompanyBranchModel(1L, "Warszawa");
+        CompanyBranchModel startBranch = new CompanyBranchModel(1L, "Warszawa", employees, carRental);
         Mockito.when(branchesRepositoryMock.findById(1L)).thenReturn(Optional.of(startBranch));
 
-        CompanyBranchModel endBranch = new CompanyBranchModel(2L, "Gdynia");
+        CompanyBranchModel endBranch = new CompanyBranchModel(2L, "Gdynia", employees, carRental);
         Mockito.when(branchesRepositoryMock.findById(2L)).thenReturn(Optional.of(endBranch));
 
         //here we are recording behavior of carRepositoryMock mock.
@@ -65,6 +70,9 @@ class ReservationServiceTest {
                 "KIA",
                 "Ceed",
                 "Sedan",
+                2013,
+                "Black",
+                120000,
                 CarStatus.AVAILABLE,
                 BigDecimal.valueOf(100)
         );

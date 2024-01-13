@@ -4,10 +4,15 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/car_rentals")
+@RequestMapping("/")
 public class CarRentalController {
 
     private final CarRentalService service;
+
+    @GetMapping
+    public String getCarRental() {
+        return "index";
+    }
 
     public CarRentalController(CarRentalService service) {
         this.service = service;

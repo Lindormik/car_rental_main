@@ -35,7 +35,7 @@ public class BranchesController {
         CarRentalModel carRental = companyBranch.getCarRental();
         return new CompanyBranchDTO(
                 companyBranch.getId(),
-                companyBranch.getName(),
+                companyBranch.getBranchAddress(),
                 new HQDetails(
                         carRental.getName(),
                         carRental.getOwner(),

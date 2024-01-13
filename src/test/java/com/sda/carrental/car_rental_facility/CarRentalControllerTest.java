@@ -1,5 +1,6 @@
 package com.sda.carrental.car_rental_facility;
 
+import com.sda.carrental.employee.EmployeeModel;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -7,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // This is an example of integration test
@@ -23,10 +25,12 @@ class CarRentalControllerTest {
     @Test
     void shouldSaveCarRental() {
         //given - preparing objects that will be used in request body (payload)
+        List<EmployeeModel> employees = new ArrayList<>();
+        CarRentalModel carRental = new CarRentalModel();
         List<CompanyBranchModel> branches = List.of(
-            new CompanyBranchModel(null, "Radom")
+            new CompanyBranchModel(null, "Radom", employees, carRental)
         );
-        CarRentalModel carRental = new CarRentalModel(
+        CarRentalModel carRentalModel = new CarRentalModel(
                 null,
                 "Car Rent",
                 "www.cars.pl",

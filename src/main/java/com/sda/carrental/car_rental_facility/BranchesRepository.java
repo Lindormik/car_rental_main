@@ -6,6 +6,6 @@ import java.util.Optional;
 
 public interface BranchesRepository extends JpaRepository<CompanyBranchModel, Long> {
 
-    Optional<CompanyBranchModel> findByName(String startBranchName);
+    Optional<CompanyBranchModel> findByBranchAddress(String startBranchName);
 
 }

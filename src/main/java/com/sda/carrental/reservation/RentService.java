@@ -25,7 +25,7 @@ public class RentService {
 
     private RentModel createRentModelObjectBaseOnRentDTO(RentDTO rentModel) {
         RentModel rentToSave = new RentModel();
-        rentToSave.setEmployee(rentModel.employee());
+        rentToSave.setEmployee(rentToSave.getEmployee());
         rentToSave.setRentDate(rentModel.rentDate());
         rentToSave.setComments(rentModel.comments());
         ReservationModel reservationFromRepository = findReservationById(rentModel.reservationId());

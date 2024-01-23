@@ -25,8 +25,7 @@ public class CarRentalModel {
     @NotNull(message = "field can't be null")
     private String owner;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "car_rental_id")
+    @OneToMany(mappedBy = "carRental", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CompanyBranchModel> branches;
 
     public CarRentalModel(Long id, String name, String internetDomain, String address, String owner, List<CompanyBranchModel> branches) {

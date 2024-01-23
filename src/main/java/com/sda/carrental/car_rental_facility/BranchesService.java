@@ -1,5 +1,6 @@
 package com.sda.carrental.car_rental_facility;
 
+import com.sda.carrental.employee.EmployeeModel;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,10 @@ public class BranchesService {
 
     public BranchesService(BranchesRepository repository) {
         this.repository = repository;
+    }
+
+    CompanyBranchModel save(CompanyBranchModel branch) {
+        return repository.save(branch);
     }
 
     CompanyBranchModel findById(Long id) {

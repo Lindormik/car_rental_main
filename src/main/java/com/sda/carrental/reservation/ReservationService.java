@@ -52,6 +52,10 @@ public class ReservationService {
         reservation.setEndBranch(endBranchFromRepo);
     }
 
+    public ReservationModel getById(Long id) {
+        return reservationRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundInRepositoryException("Reservation not found"));
+    }
 }
 
 

@@ -65,8 +65,8 @@ public class CarModel {
                 ", model = " + model + '\'' +
                 ", type = " + type + '\'' +
                 ", color = " + color + '\'' +
-                ", status =" + status +
-                ", price = " + price +
+                ", status = " + status + '\'' +
+                ", price = " + price + '\'' +
                 '}';
     }
 

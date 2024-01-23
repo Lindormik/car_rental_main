@@ -1,9 +1,11 @@
 package com.sda.carrental.car_rental_facility;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.sda.carrental.employee.EmployeeModel;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,11 +19,16 @@ public class BranchesController {
         this.service = service;
     }
 
+    @PostMapping
+    public CompanyBranchModel save(@RequestBody @Valid CompanyBranchModel branch) {
+        return service.save(branch);
+    }
+
     @GetMapping
     public List<CompanyBranchDTO> findAll() {
         return service.findAll()
                 .stream()
-                .map(companyBranchModel -> mapToCompanyBranchDTO(companyBranchModel))
+                .map(this::mapToCompanyBranchDTO)
                 .toList();
     }
 
@@ -38,16 +45,16 @@ public class BranchesController {
                 companyBranch.getBranchAddress(),
                 new HQDetails(
                         carRental.getName(),
-                        carRental.getOwner(),
                         carRental.getInternetDomain(),
-                        carRental.getAddress()
+                        carRental.getAddress(),
+                        carRental.getOwner()
                 )
         );
     }
 }
 
-record CompanyBranchDTO(Long branchId, String branchName, HQDetails mainBranchDetails) {
+record CompanyBranchDTO(Long branchId, String branchAddress, HQDetails mainBranchDetails) {
 }
 
-record HQDetails(String carRentalName, String owner, String internetDomain, String address) {
+record HQDetails(String carRentalName, String internetDomain, String address, String owner) {
 }

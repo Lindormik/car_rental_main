@@ -19,13 +19,11 @@ public class CompanyBranchModel {
     @NotNull(message = "field can't be null")
     private String branchAddress;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "company_branch_id")
+    @OneToMany(mappedBy = "companyBranch", cascade = CascadeType.ALL)
     private List<EmployeeModel> employees;
 
     @ManyToOne
     @JoinColumn(name = "car_rental_id", nullable = false)
-    @JsonBackReference
     private CarRentalModel carRental;
 
     public CompanyBranchModel(Long id, String branchAddress, List<EmployeeModel> employees, CarRentalModel carRental) {
@@ -73,8 +71,8 @@ public class CompanyBranchModel {
     @Override
     public String toString() {
         return "CompanyBranchModel{" +
-                "id=" + id +
-                ", adress= " + branchAddress + '\'' +
+                "id = " + id +
+                ", address = " + branchAddress + '\'' +
                 '}';
     }
 }

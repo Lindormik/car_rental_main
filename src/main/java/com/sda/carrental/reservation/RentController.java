@@ -3,6 +3,8 @@ package com.sda.carrental.reservation;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 //RestController combines Controller and ResponseBody annotations
 //Controller - defines endpoints and allowed operations
 //Response Body - convert returned object to jsonFormat
@@ -29,5 +31,14 @@ public class RentController {
     //GlobalExceptionHandling class
     public RentModel save(@RequestBody @Valid RentDTO rent) {
         return service.save(rent);
+    }
+    @GetMapping("/{id}")
+    public RentModel getById(@PathVariable Long id) {
+        return service.getById(id);
+    }
+
+    @GetMapping
+    public List<RentModel> getAll() {
+        return service.getAll();
     }
 }

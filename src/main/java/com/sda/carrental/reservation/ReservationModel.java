@@ -35,7 +35,7 @@ public class ReservationModel {
     @DecimalMin(value = "1.00", message = "Price must be grater than 1.00")
     @DecimalMax(value = "10000.00", message = "Price must be less than 10000.00")
     @Digits(integer = 7, fraction = 2, message = "Price must have up to 7 digits in total and 2 decimal places")
-    private BigDecimal price;
+    private BigDecimal loanAmount;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "start_branch_id")
@@ -45,13 +45,13 @@ public class ReservationModel {
     @JoinColumn(name = "end_branch_id")
     private CompanyBranchModel endBranch;
 
-    public ReservationModel(Long id, String customer, CarModel car, LocalDate startDate, LocalDate endDate, BigDecimal price, CompanyBranchModel startBranch, CompanyBranchModel endBranch) {
+    public ReservationModel(Long id, String customer, CarModel car, LocalDate startDate, LocalDate endDate, BigDecimal loanAmount, CompanyBranchModel startBranch, CompanyBranchModel endBranch) {
         this.id = id;
         this.customer = customer;
         this.car = car;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.price = price;
+        this.loanAmount = loanAmount;
         this.startBranch = startBranch;
         this.endBranch = endBranch;
     }
@@ -98,12 +98,12 @@ public class ReservationModel {
         this.endDate = endDate;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal getLoanAmount() {
+        return loanAmount;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setLoanAmount(BigDecimal loanAmount) {
+        this.loanAmount = loanAmount;
     }
 
     public CompanyBranchModel getStartBranch() {
@@ -125,14 +125,14 @@ public class ReservationModel {
     @Override
     public String toString() {
         return "ReservationModel{" +
-                "id=" + id +
-                ", customer='" + customer + '\'' +
-                ", car='" + car + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", price=" + price +
-                ", startBranch=" + startBranch +
-                ", endBranch=" + endBranch +
+                "id =" + id +
+                ", customer =" + customer + '\'' +
+                ", car =" + car + '\'' +
+                ", startDate =" + startDate + '\'' +
+                ", endDate =" + endDate + '\'' +
+                ", loanAmount =" + loanAmount + '\'' +
+                ", startBranch =" + startBranch + '\'' +
+                ", endBranch =" + endBranch + '\'' +
                 '}';
     }
 }

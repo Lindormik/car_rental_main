@@ -97,7 +97,7 @@ class ReservationServiceTest {
         //now we can perform assertions on captured argument
         assertThat(result.getEndDate()).isEqualTo("2023-11-22");
         assertThat(result.getStartDate()).isEqualTo("2023-11-20");
-        assertThat(result.getPrice().intValue()).isEqualTo(200);
+        assertThat(result.getLoanAmount().intValue()).isEqualTo(200);
         assertThat(result.getCar()).isEqualTo(car);
     }
 }

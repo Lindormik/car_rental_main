@@ -11,5 +11,5 @@ public record ReservationDTO(
         @NotNull LocalDate endDate,
         @NotNull Long startBranchId,
         @NotNull Long endBranchId
-        ) {
+) {
 }

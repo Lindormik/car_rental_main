@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 record RentDTO(
-        @NotNull String employee,
+        @NotNull Long employeeId,
         String comments,
         @NotNull LocalDate rentDate,
         @NotNull Long reservationId

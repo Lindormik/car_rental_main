@@ -51,7 +51,7 @@ CREATE TABLE reservation
     customer        VARCHAR(255)  NOT NULL,
     start_date      DATE          NOT NULL,
     end_date        DATE          NOT NULL,
-    price           DECIMAL(7, 2) NOT NULL,
+    loan_amount          DECIMAL(7, 2) NOT NULL,
     start_branch_id BIGINT,
     end_branch_id   BIGINT,
     car_id          BIGINT,

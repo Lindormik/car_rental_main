@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Service
 public class ReservationService {
@@ -31,24 +32,24 @@ public class ReservationService {
         reservation.setEndDate(reservationDTO.endDate());
 
         CarModel carFromRepo = carRepository.findById(reservationDTO.carId())
-                .orElseThrow(() -> new ObjectNotFoundInRepositoryException("car not found"));
+                .orElseThrow(() -> new ObjectNotFoundInRepositoryException("Car not found"));
 
         reservation.setCar(carFromRepo);
 
         long daysDifference = ChronoUnit.DAYS.between(reservation.getStartDate(), reservation.getEndDate());
         BigDecimal price = carFromRepo.getPrice().multiply(new BigDecimal(daysDifference));
-        reservation.setPrice(price);
+        reservation.setLoanAmount(price);
 
         return reservationRepository.save(reservation);
     }
 
     private void setStartAndEndBranch(ReservationDTO reservationDTO, ReservationModel reservation) {
         CompanyBranchModel startBranchFromRepo = branchesRepository.findById(reservationDTO.startBranchId())
-                        .orElseThrow(() -> new ObjectNotFoundInRepositoryException("Branch not found"));
+                .orElseThrow(() -> new ObjectNotFoundInRepositoryException("Branch not found"));
         reservation.setStartBranch(startBranchFromRepo);
 
         CompanyBranchModel endBranchFromRepo = branchesRepository.findById(reservationDTO.endBranchId())
-                        .orElseThrow(() -> new ObjectNotFoundInRepositoryException("Branch not found"));
+                .orElseThrow(() -> new ObjectNotFoundInRepositoryException("Branch not found"));
         reservation.setEndBranch(endBranchFromRepo);
     }
 
@@ -56,6 +57,11 @@ public class ReservationService {
         return reservationRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundInRepositoryException("Reservation not found"));
     }
+
+    public List<ReservationModel> getAll() {
+        return reservationRepository.findAll();
+    }
 }
+
 
 

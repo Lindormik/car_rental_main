@@ -1,25 +1,32 @@
 package com.sda.carrental.car_rental_facility;
 
-import com.sda.carrental.employee.EmployeeModel;
+import com.sda.carrental.reservation.RentModel;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BranchesService {
 
     private final BranchesRepository repository;
+    private final CarRentalRepository carRentalRepository;
 
-    public BranchesService(BranchesRepository repository) {
+    public BranchesService(BranchesRepository repository, CarRentalRepository carRentalRepository) {
         this.repository = repository;
+        this.carRentalRepository = carRentalRepository;
     }
 
     CompanyBranchModel save(CompanyBranchModel branch) {
+        CarRentalModel carRental = carRentalRepository.findById(branch
+                        .getCarRental()
+                        .getId())
+                .orElseThrow(() -> new ObjectNotFoundInRepositoryException("Car Rental not found"));
+
+        branch.setCarRental(carRental);
         return repository.save(branch);
     }
+
+
 
     CompanyBranchModel findById(Long id) {
         return repository.findById(id)

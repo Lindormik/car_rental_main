@@ -1,8 +1,9 @@
 package com.sda.carrental.reservation;
 
-import com.sda.carrental.car_rental_facility.CarRentalModel;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/reservations")
@@ -22,5 +23,10 @@ public class ReservationController {
     @GetMapping("/{id}")
     public ReservationModel getById(@PathVariable Long id) {
         return service.getById(id);
+    }
+
+    @GetMapping
+    public List<ReservationModel> getAll() {
+        return service.getAll();
     }
 }

@@ -83,11 +83,11 @@ public class RentModel {
     @Override
     public String toString() {
         return "RentModel{" +
-                "id=" + id +
-                ", employee='" + employee + '\'' +
-                ", comments='" + comments + '\'' +
-                ", rentDate=" + rentDate +
-                ", reservation=" + reservation +
+                "id =" + id +
+                ", employee = " + employee + '\'' +
+                ", comments = " + comments + '\'' +
+                ", rentDate = " + rentDate +
+                ", reservation = " + reservation +
                 '}';
     }
 }

@@ -1,6 +1,8 @@
 package com.sda.carrental.reservation;
 
 import com.sda.carrental.car_rental_facility.ObjectNotFoundInRepositoryException;
+import com.sda.carrental.employee.EmployeeModel;
+import com.sda.carrental.employee.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,28 +11,41 @@ import java.util.List;
 public class RentService {
 
     private final RentRepository rentRepository;
-
     private final ReservationRepository reservationRepository;
+    private final EmployeeRepository employeeRepository;
 
-    public RentService(RentRepository rentRepository, ReservationRepository reservationRepository) {
+
+    public RentService(RentRepository rentRepository, ReservationRepository reservationRepository, EmployeeRepository employeeRepository) {
         this.rentRepository = rentRepository;
         this.reservationRepository = reservationRepository;
+        this.employeeRepository = employeeRepository;
     }
 
     RentModel save(RentDTO rentDTO) {
         throwExceptionIfRentWithReservationIdAlreadyExist(rentDTO.reservationId());
+
         RentModel rentToSave = createRentModelObjectBaseOnRentDTO(rentDTO);
         return rentRepository.save(rentToSave);
     }
 
-    private RentModel createRentModelObjectBaseOnRentDTO(RentDTO rentModel) {
+    private RentModel createRentModelObjectBaseOnRentDTO(RentDTO rentDTO) {
         RentModel rentToSave = new RentModel();
-        rentToSave.setEmployee(rentToSave.getEmployee());
-        rentToSave.setRentDate(rentModel.rentDate());
-        rentToSave.setComments(rentModel.comments());
-        ReservationModel reservationFromRepository = findReservationById(rentModel.reservationId());
+
+        rentToSave.setRentDate(rentDTO.rentDate());
+        rentToSave.setComments(rentDTO.comments());
+
+        EmployeeModel employeeFromRepository = findEmployeeById(rentDTO.employeeId());
+        rentToSave.setEmployee(employeeFromRepository);
+
+        ReservationModel reservationFromRepository = findReservationById(rentDTO.reservationId());
         rentToSave.setReservation(reservationFromRepository);
         return rentToSave;
+    }
+
+    private EmployeeModel findEmployeeById(Long employeeId) {
+        return employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new ObjectNotFoundInRepositoryException("Employee with id " +
+                        employeeId + " not found"));
     }
 
     private ReservationModel findReservationById(Long reservationId) {
@@ -48,5 +63,13 @@ public class RentService {
         if (!reservationIds.isEmpty()) {
            throw new RentAlreadyExistsForReservation("Rent already exist for reservation with id " + reservationId);
         }
+    }
+
+    public RentModel getById(Long id) {
+        return rentRepository.findById(id)
+            .orElseThrow(() -> new ObjectNotFoundInRepositoryException("Rent not found"));
+    }
+    public List<RentModel> getAll() {
+        return rentRepository.findAll();
     }
 }

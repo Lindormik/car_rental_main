@@ -22,7 +22,6 @@ public class EmployeeModel {
     @NotNull
     private EmployeePosition jobPosition;
 
-
     @ManyToOne
     @JoinColumn(name = "company_branch_id", nullable = false)
     private CompanyBranchModel companyBranch;

@@ -1,5 +1,6 @@
 package com.sda.carrental.car_rental_facility;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -25,7 +26,8 @@ public class CarRentalModel {
     @NotNull(message = "field can't be null")
     private String owner;
 
-    @OneToMany(mappedBy = "carRental", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(mappedBy = "carRental", cascade = CascadeType.ALL)
     private List<CompanyBranchModel> branches;
 
     public CarRentalModel(Long id, String name, String internetDomain, String address, String owner, List<CompanyBranchModel> branches) {

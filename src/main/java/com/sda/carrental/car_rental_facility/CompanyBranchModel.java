@@ -1,11 +1,10 @@
 package com.sda.carrental.car_rental_facility;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sda.carrental.employee.EmployeeModel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -19,6 +18,7 @@ public class CompanyBranchModel {
     @NotNull(message = "field can't be null")
     private String branchAddress;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "companyBranch", cascade = CascadeType.ALL)
     private List<EmployeeModel> employees;
 

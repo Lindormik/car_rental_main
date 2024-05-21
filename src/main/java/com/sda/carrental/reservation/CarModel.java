@@ -56,7 +56,6 @@ public class CarModel {
         this.price = price;
     }
 
-
     @Override
     public String toString() {
         return "CarModel{" +

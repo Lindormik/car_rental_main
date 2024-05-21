@@ -1,6 +1,5 @@
 package com.sda.carrental.employee;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sda.carrental.car_rental_facility.CompanyBranchModel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

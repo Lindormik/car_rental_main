@@ -1,6 +1,7 @@
 package com.sda.carrental.reservation;
 
 import com.sda.carrental.car_rental_facility.CompanyBranchModel;
+import com.sda.carrental.customer.CustomerModel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -19,7 +20,9 @@ public class ReservationModel {
     private Long id;
 
     @NotNull
-    private String customer;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id")
+    private CustomerModel customer;
 
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)
@@ -45,7 +48,7 @@ public class ReservationModel {
     @JoinColumn(name = "end_branch_id")
     private CompanyBranchModel endBranch;
 
-    public ReservationModel(Long id, String customer, CarModel car, LocalDate startDate, LocalDate endDate, BigDecimal loanAmount, CompanyBranchModel startBranch, CompanyBranchModel endBranch) {
+    public ReservationModel(Long id, CustomerModel customer, CarModel car, LocalDate startDate, LocalDate endDate, BigDecimal loanAmount, CompanyBranchModel startBranch, CompanyBranchModel endBranch) {
         this.id = id;
         this.customer = customer;
         this.car = car;
@@ -66,11 +69,11 @@ public class ReservationModel {
         this.id = id;
     }
 
-    public String getCustomer() {
+    public CustomerModel getCustomer() {
         return customer;
     }
 
-    public void setCustomer(String customer) {
+    public void setCustomer(CustomerModel customer) {
         this.customer = customer;
     }
 
@@ -132,7 +135,7 @@ public class ReservationModel {
                 ", endDate =" + endDate + '\'' +
                 ", loanAmount =" + loanAmount + '\'' +
                 ", startBranch =" + startBranch + '\'' +
-                ", endBranch =" + endBranch + '\'' +
+                ", endBranch =" + endBranch +
                 '}';
     }
 }

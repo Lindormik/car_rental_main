@@ -19,8 +19,8 @@ public class CarController {
     public CarModel save(@RequestBody @Valid CarModel car) {
         return service.save(car);
     }
-
     @GetMapping
+
     public List<CarModel> getAll() {
         return service.getAll();
     }

@@ -29,10 +29,8 @@ class ReservationServiceTest {
     //we can record mock behavior and make it return objects that we desire
     @Mock
     private CarRepository carRepositoryMock;
-
     @Mock
     private BranchesRepository branchesRepositoryMock;
-
     @Mock
     private ReservationRepository reservationRepositoryMock;
 
@@ -46,7 +44,7 @@ class ReservationServiceTest {
         //given
         //this object will be passed as an argument to saveReservation method
         ReservationDTO reservationDto = new ReservationDTO(
-                "Ted",
+                1L,
                 1L,
                 LocalDate.of(2023,11,20),
                 LocalDate.of(2023,11,22),

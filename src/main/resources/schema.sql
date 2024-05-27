@@ -7,8 +7,6 @@ DROP TABLE IF EXISTS car;
 DROP TABLE IF EXISTS customer;
 DROP TABLE IF EXISTS car_rental;
 
-
-
 CREATE TABLE car_rental
 (
     id              BIGINT AUTO_INCREMENT UNIQUE PRIMARY KEY,
@@ -20,8 +18,7 @@ CREATE TABLE car_rental
 
 -- Adding data to car_rental table
 INSERT INTO car_rental (name, internet_domain, address, owner) VALUES
-('Best Cars', 'bestcars.com', '1234 Main St', 'John Doe'),
-('Quick Rentals', 'quickrentals.com', '5678 Second Ave', 'Jane Smith');
+('Best Cars', 'bestcars.com', '1234 Main St', 'John Doe');
 
 CREATE TABLE customer
 (
@@ -35,7 +32,10 @@ CREATE TABLE customer
 -- Adding data to customer table
 INSERT INTO customer (name, surname, email, address) VALUES
 ('Alice', 'Johnson', 'alice.johnson@example.com', '1234 Maple St'),
-('Bob', 'Smith', 'bob.smith@example.com', '5678 Oak St');
+('Bob', 'Smith', 'bob.smith@example.com', '5678 Oak St'),
+('Charlie', 'Williams', 'charlie.williams@example.com', '3456 Pine St'),
+('Diana', 'Lewis', 'diana.lewis@example.com', '6789 Elm St'),
+('Ethan', 'Davis', 'ethan.davis@example.com', '9012 Birch St');
 
 CREATE TABLE car
 (
@@ -52,10 +52,14 @@ CREATE TABLE car
 
 -- Adding data to car table
 INSERT INTO car (brand, model, type, year_of_production, color, car_mileage, status, price) VALUES
-('Toyota', 'Corolla', 'Sedan', 2020, 'Red', 15000, 1, 20000.00),
-('Ford', 'Mustang', 'Coupe', 2019, 'Blue', 12000, 1, 30000.00);
+('Toyota', 'Corolla', 'Sedan', 2020, 'Red', 15000, 0, 20000.00),
+('Ford', 'Mustang', 'Coupe', 2019, 'Blue', 12000, 0, 30000.00),
+('Honda', 'Civic', 'Sedan', 2018, 'Black', 20000, 0, 18000.00),
+('Chevrolet', 'Camaro', 'Coupe', 2021, 'Yellow', 5000, 0, 35000.00),
+('Nissan', 'Rogue', 'SUV', 2019, 'White', 25000, 0, 25000.00);
 
 CREATE TABLE company_branch
+
 (
     id             BIGINT AUTO_INCREMENT UNIQUE PRIMARY KEY,
     branch_address VARCHAR(255) NOT NULL,
@@ -66,7 +70,8 @@ CREATE TABLE company_branch
 -- Adding data to company_branch table
 INSERT INTO company_branch (branch_address, car_rental_id) VALUES
 ('7890 Third Blvd', 1),
-('4321 Fourth Ln', 2);
+('4321 Fourth Ln', 1),
+('4444 Eighth Ln', 1);
 
 CREATE TABLE employee
 (
@@ -80,8 +85,11 @@ CREATE TABLE employee
 
 -- Adding data to employee table
 INSERT INTO employee (name, surname, job_position, company_branch_id) VALUES
-('Emily', 'Clark', 1, 1),
-('Michael', 'Brown', 2, 2);
+('Emily', 'Clark', 0, 1),
+('Michael', 'Brown', 1, 2),
+('George', 'Harris', 1, 2),
+('Hannah', 'Walker', 1, 2),
+('Ian', 'Young', 0, 1);
 
 CREATE TABLE reservation
 (
@@ -102,7 +110,10 @@ CREATE TABLE reservation
 -- Adding data to reservation table
 INSERT INTO reservation (customer_id, start_date, end_date, loan_amount, start_branch_id, end_branch_id, car_id) VALUES
 (1, '2024-06-01', '2024-06-10', 500.00, 1, 2, 1),
-(2, '2024-07-01', '2024-07-15', 750.00, 2, 1, 2);
+(2, '2024-07-01', '2024-07-15', 750.00, 2, 1, 2),
+(3, '2024-08-01', '2024-08-10', 600.00, 3, 1, 3),
+(4, '2024-09-01', '2024-09-15', 800.00, 3, 2, 3),
+(5, '2024-10-01', '2024-10-10', 700.00, 1, 3, 4);
 
 CREATE TABLE rent
 (
@@ -118,7 +129,10 @@ CREATE TABLE rent
 -- Adding data to rent table
 INSERT INTO rent (employee_id, comments, rent_date, reservation_id) VALUES
 (1, 'No issues', '2024-06-01', 1),
-(2, 'Minor scratches', '2024-07-01', 2);
+(2, 'Minor scratches', '2024-07-01', 2),
+(3, 'Excellent condition', '2024-08-01', 3),
+(4, 'Clean and ready', '2024-09-01', 4),
+(5, 'Minor wear and tear', '2024-10-01', 5);
 
 CREATE TABLE car_return
     (
@@ -135,7 +149,10 @@ CREATE TABLE car_return
 -- Adding data to car_return table
 INSERT INTO car_return (employee_id, reservation_id, return_date, additional_fee, comments) VALUES
 (1, 1, '2024-06-10', 0, 'Returned in good condition'),
-(2, 2, '2024-07-15', 50, 'Late return, additional fee applied');
+(2, 2, '2024-07-15', 50, 'Late return, additional fee applied'),
+(3, 3, '2024-08-10', 0, 'Returned in perfect condition'),
+(4, 4, '2024-09-15', 25, 'Returned with minor damages, fee applied'),
+(5, 5, '2024-10-10', 0, 'Returned on time and in good condition');
 
 
 
